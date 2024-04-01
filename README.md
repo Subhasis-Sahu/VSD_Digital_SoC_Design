@@ -28,22 +28,22 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
 
 ## 1.4 Lab 1: Run  synthesis on "picorv32a" design using Openlane flow,generate outputs and analyse the results,by determining flop ratio.
 
-    Step 1 : Change directory to /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane
+   Step 1 : Change directory to /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane
     ![changing to openlane directory](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/7b87a8ce-0738-4990-91e2-051831b92c3b)
 
-    Step 2 : set alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u
+   Step 2 : set alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u
     Step 3 : Invoke Openlane using 'docker' command
     Step 4 : Run Openlane flow in interactive mode using following command: ./flow.tcl -interactive
     ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/6e88e7e3-3ea5-497d-a53f-9303ac153d1f)
 
-    Step 5 :Input required package for openlane flow, prep the design and then run synthesis
+   Step 5 :Input required package for openlane flow, prep the design and then run synthesis
             package require openlane 0.9 #inputs required package for openlane flow
             prep -design picorv32a #prepares the picorv32a design for openlane flow
             run_synthesis #run synthesis for the prepared design
             ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b4429451-7253-438d-9f26-49aee4aa8177)
             ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4bf08195-3108-487b-825c-fe45aab62ded)
             
-    Step 6 : Characterizing synthesis results
+   Step 6 : Characterizing synthesis results
 
     
 
