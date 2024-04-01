@@ -32,7 +32,9 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
     ![changing to openlane directory](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/7b87a8ce-0738-4990-91e2-051831b92c3b)
 
    Step 2 : set alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u
+   
    Step 3 : Invoke Openlane using 'docker' command
+   
    Step 4 : Run Openlane flow in interactive mode using following command: ./flow.tcl -interactive
     ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/6e88e7e3-3ea5-497d-a53f-9303ac153d1f)
 
