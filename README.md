@@ -39,11 +39,12 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
     ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/6e88e7e3-3ea5-497d-a53f-9303ac153d1f)
 
    Step 5 :Input required package for openlane flow, prep the design and then run synthesis
-            package require openlane 0.9 #inputs required package for openlane flow
-            prep -design picorv32a #prepares the picorv32a design for openlane flow
-            run_synthesis #run synthesis for the prepared design
-            ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b4429451-7253-438d-9f26-49aee4aa8177)
-            ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4bf08195-3108-487b-825c-fe45aab62ded)
+   package require openlane 0.9 #inputs required package for openlane flow
+   prep -design picorv32a #prepares the picorv32a design for openlane flow
+   run_synthesis #run synthesis for the prepared design
+            
+   ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b4429451-7253-438d-9f26-49aee4aa8177)
+   ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4bf08195-3108-487b-825c-fe45aab62ded)
             
    Step 6 : Characterizing synthesis results
 
