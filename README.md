@@ -49,7 +49,15 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b4429451-7253-438d-9f26-49aee4aa8177)
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4bf08195-3108-487b-825c-fe45aab62ded)
             
-   Step 6 : Characterizing synthesis results
+   Step 6 : Characterizing synthesis results:
+   ![synthesis no  of cells_rpt](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/cad080a3-6921-4b04-bb88-c442fe4272dc)
+   ![synthesis no  of DFF_rpt](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/155231b0-bb92-4b95-8f6c-11ff93c398cd)
+
+   Flop Ratio =  (Total no.of DFF’s)/(Total no.of Standard Cells)=1613/14876=0.10843
+
+   # Day-2 Floorplanning,Placement and Cell Characterization:
+
+
 
     
 
