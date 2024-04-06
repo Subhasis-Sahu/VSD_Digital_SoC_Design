@@ -128,7 +128,7 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
 
    magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def & # load floorplan.def in magic tool
 
-   placement.def screenshot:
+   placement.def screenshot in magic tool:
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/eaf1ab52-f85a-40bb-8e0a-434c194c4bfd)
 
    Legally Placed standard cells:
