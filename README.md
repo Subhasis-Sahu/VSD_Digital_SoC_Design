@@ -354,6 +354,47 @@ lef write # generate lef of current layout in magic tool
 Screenshot of newly generated lef:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/aabb890e-5008-4feb-b865-a6d3cf698b9e)
 
+Step 2:Copy the newly generated lef and associated required lib files to 'picorv32a' design 'src' directory
+
+cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/ # Copy lef file 
+cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/ # Copy lib files
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4d55aee8-296c-4ed0-91d2-df25a3422978)
+
+Edit 'config.tcl' to change lib file and add the new extra lef into the openlane flow:
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+
+config.tcl screenshot with above added lines:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/2c8f3ad6-8531-4cc9-82bc-0a2627686e43)
+
+Step 3: Perform openlane flow synthesis with newly inserted custom inverter cell:
+cd ~/Desktop/work/tools/openlane_working_dir/openlane # Change directory to openlane flow directory
+
+docker #run openlane docker subsystem
+./flow.tcl -interactive # open openlane in interactive mode
+
+package require openlane 0.9 #inputs required package for openlane flow
+prep -design picorv32a #prepares the picorv32a design for openlane flow
+run_synthesis #run synthesis for the prepared design
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/571b10ba-84da-425f-97d9-6c37df27b694)
+
+Step 4:Reduce the newly introduced violations with the introduction of custom inverter cell by modifying design parameters:
+
+Note current generateddesign values before modifying parameters to improve timing:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4975e66a-9211-4c30-b653-7c9402e04c29)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/8e8a5cfc-9d60-4f95-a1cf-28aeb2cecd3c)
+
+
+
+
+
+
+
+
 
 
 
