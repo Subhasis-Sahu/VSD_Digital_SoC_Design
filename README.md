@@ -357,15 +357,19 @@ Screenshot of newly generated lef:
 
 Step 2:Copy the newly generated lef and associated required lib files to 'picorv32a' design 'src' directory
 
-cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/ # Copy lef file 
+cp sky130_vsdinv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/ # Copy lef file
+
 cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/ # Copy lib files
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4d55aee8-296c-4ed0-91d2-df25a3422978)
 
 Edit 'config.tcl' to change lib file and add the new extra lef into the openlane flow:
 
 set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
 set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+
 set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+
 set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
 
 set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
@@ -380,7 +384,9 @@ docker #run openlane docker subsystem
 ./flow.tcl -interactive # open openlane in interactive mode
 
 package require openlane 0.9 #inputs required package for openlane flow
+
 prep -design picorv32a #prepares the picorv32a design for openlane flow
+
 run_synthesis #run synthesis for the prepared design
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/571b10ba-84da-425f-97d9-6c37df27b694)
 
@@ -394,6 +400,7 @@ Commands to change value of design parameters and improve timing:
 prep -design picorv32a -tag 09-04_13-19 -overwrite # Now once again we have to prep design so as to update variables
 
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef] 
+
 add_lefs -src $lefs # Addiitional commands to include newly added lef to openlane flow merged.lef
 
 echo $::env(SYNTH_STRATEGY) # Command to display current value of variable SYNTH_STRATEGY
@@ -440,6 +447,7 @@ run_placement #run placement after floorplan is done :
 
 Load placement def in magic tool:
 cd /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/09-04_13-19/results/placement/ # change directory to newly generated placement.def file
+
 magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def & #invoke magic tool and open placement.def
 
 placement.def screenshot in magic tool:
@@ -455,15 +463,18 @@ Abutment of power pins of custom inverter with other library cells clearly visib
 
 Step 6 : Perform Post synthesis Static Timing Analysis with OpenSTA tool:
 Rerun synthesis without adding any parameters to improve timing
+
 cd ~/Desktop/work/tools/openlane_working_dir/openlane # Change directory to openlane flow directory
 
 docker #run openlane docker subsystem
 ./flow.tcl -interactive # open openlane in interactive mode
 
 package require openlane 0.9 #inputs required package for openlane flow
+
 prep -design picorv32a #prepares the picorv32a design for openlane flow
 
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef] 
+
 add_lefs -src $lefs # Addiitional commands to include newly added lef to openlane flow merged.lef
 
 set ::env(SYNTH_SIZING) 1 # Command to set new value for SYNTH_SIZING
@@ -487,9 +498,11 @@ sta pre_sta.conf # Command to invoke OpenSTA tool with script
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/00bfbbf4-375a-44e1-8a39-a1b6dd7baa94)
 
 As more fanout is creating more delay,we can rerun synthesis with parameter to reduce fanout to improve delay:
+
 prep -design picorv32a -tag 09-04_15-19 -overwrite # Now once again we have to prep design so as to update variables
 
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef] 
+
 add_lefs -src $lefs # Addiitional commands to include newly added  custom inv lef to openlane flow merged.lef
 
 
@@ -541,7 +554,9 @@ OR gate of drive strength 2 driving OA gate leads to more delay:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/3b9154d1-75df-414c-bfee-082a36f9a897)
 
 report_net -connections _11643_
+
 replace_cell _14481_ sky130_fd_sc_hd__or4_4
+
 report_checks -fields {net cap slew input_pins} -digits 4
 
 slack is seen as reducing:
@@ -551,7 +566,9 @@ OR gate of drive strength 2 driving OA gate leads to more delay:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/84c54ba1-6fcf-40fa-b288-30eaf43454c8)
 
 report_net -connections _11668_
+
 replace_cell _14506_ sky130_fd_sc_hd__or4_4
+
 report_checks -fields {net cap slew input_pins} -digits 4
 
 slack is seen as reducing:
@@ -585,9 +602,11 @@ instance _14506_ is replaced with sky130_fd_sc_hd__or4_4 (verified in netlist):
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/60fef426-ec0b-4c71-9d05-59df90bff884)
 
 Rerun synthesis,floorplan,and placement and CTS in the netlist with no timing violations:
+
 prep -design picorv32a -tag 09-04_13-19 -overwrite # Now once again we have to prep design so as to update variables
 
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef] 
+
 add_lefs -src $lefs # Addiitional commands to include newly added lef to openlane flow merged.lef
 
 set ::env(SYNTH_STRATEGY) "DELAY 3" # Command to set new value for SYNTH_STRATEGY
@@ -602,7 +621,9 @@ run_synthesis # Now that the design is prepped and ready, we can run synthesis a
 So,after synthesis,run following commands:
 
 init_floorplan # Following three commands sourced from "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/scripts/tcl_commands/floorplan.tcl" & it is also available in Floorplan Commands section in                         "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/docs/source/OpenLANE_commands.md"
+
 place_io
+
 tap_decap_or
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/91d69f74-12a5-48dc-9ea7-89aaf154735d)
 
@@ -616,33 +637,46 @@ Step 9 : Post-CTS OpenROAD Static Timing Analysis:
 
 Commands to open OpenROAD Tool and create OpenROAD database from within openlane flow:
 openroad # Command to run OpenROAD tool
+
 read_lef /openLANE_flow/designs/picorv32a/runs/09-04_13-19/tmp/merged.lef # Reading lef file
+
 read_def /openLANE_flow/designs/picorv32a/runs/09-04_13-19/results/cts/picorv32a.cts.def # Reading def file
+
 write_db pico_cts.db # Create an OpenROAD database to work with
+
 read_db pico_cts.db # Loading the created database in OpenROAD
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/ea99d9f0-baa4-4543-8c2b-19e2a44e8752)
 
 read_verilog /openLANE_flow/designs/picorv32a/runs/09-04_13-19/results/synthesis/picorv32a.synthesis_cts.v # Read netlist post CTS
+
 read_liberty $::env(LIB_SYNTH_COMPLETE) # Read library for design
+
 link_design picorv32a # Link design and library
+
 read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc # Read in the custom sdc we created
+
 set_propagated_clock [all_clocks] # Setting all clocks as propagated clocks as this is post-cts analysis
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/0f9d1d26-65fe-4170-ac41-06de5e566aed)
 
 
 help report_checks # Check syntax of 'report_checks' command
+
 report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4 # Generating custom timing report
+
 exit # Exit to OpenLANE flow
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a5ca2b6a-a822-4f3c-93ca-17c8d4ae6506)
 
 Step 10 : Exploring post-CTS OpenROAD timing analysis by removing 'sky130_fd_sc_hd__clkbuf_1' cell from clock buffer list variable 'CTS_CLK_BUFFER_LIST':
 
 echo $::env(CTS_CLK_BUFFER_LIST) # Checking current value of 'CTS_CLK_BUFFER_LIST'
+
 set ::env(CTS_CLK_BUFFER_LIST) [lreplace $::env(CTS_CLK_BUFFER_LIST) 0 0] # Removing 'sky130_fd_sc_hd__clkbuf_1' from the list
+
 echo $::env(CTS_CLK_BUFFER_LIST) # Checking current value of 'CTS_CLK_BUFFER_LIST'
 
 
 echo $::env(CURRENT_DEF) # Checking current value of 'CURRENT_DEF'
+
 set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/09-04_13-19/results/placement/picorv32a.placement.def # Setting current def as placement def
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/96ec8adc-fe99-408e-b617-23a129b8446f)
 
@@ -656,17 +690,26 @@ echo $::env(CTS_CLK_BUFFER_LIST) # Checking current value of 'CTS_CLK_BUFFER_LIS
 
 
 Commands to open OpenROAD Tool and create OpenROAD database from within openlane flow:
+
 openroad # Command to run OpenROAD tool
+
 read_lef /openLANE_flow/designs/picorv32a/runs/09-04_13-19/tmp/merged.lef # Reading lef file
+
 read_def /openLANE_flow/designs/picorv32a/runs/09-04_13-19/results/cts/picorv32a.cts.def # Reading def file
+
 write_db pico_cts.db # Create an OpenROAD database to work with
+
 read_db pico_cts.db # Loading the created database in OpenROAD
 
 read_verilog /openLANE_flow/designs/picorv32a/runs/09-04_13-19/results/synthesis/picorv32a.synthesis_cts.v # Read netlist post CTS
 read_liberty $::env(LIB_SYNTH_COMPLETE) # Read library for design
+
 link_design picorv32a # Link design and library
+
 read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc # Read in the custom sdc we created
+
 set_propagated_clock [all_clocks] # Setting all clocks as propagated clocks as this is post-cts analysis
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/01d73c39-e473-469d-868a-39570caddb16)
 
 
@@ -677,6 +720,7 @@ report_checks -path_delay min_max -fields {slew trans net cap input_pins} -forma
 
 
 report_clock_skew -hold # Report hold skew
+
 report_clock_skew -setup # Report setup skew
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/38bb725d-0617-4206-9aab-ac2fd8de4c6f)
 
@@ -686,17 +730,21 @@ exit # Exit to OpenLANE flow
 
 
 echo $::env(CTS_CLK_BUFFER_LIST) # Checking current value of 'CTS_CLK_BUFFER_LIST'
+
 set ::env(CTS_CLK_BUFFER_LIST) [linsert $::env(CTS_CLK_BUFFER_LIST) 0 sky130_fd_sc_hd__clkbuf_1] # Inserting 'sky130_fd_sc_hd__clkbuf_1' to first index of list
+
 echo $::env(CTS_CLK_BUFFER_LIST) # Checking current value of 'CTS_CLK_BUFFER_LIST'
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/e14e3400-a69e-43db-b6fd-64807aed6cfc)
 
 # Day 5 - Final steps for RTL2GDS using tritonRoute and openSTA
 
 Step 1: Now as CTS is performed,we can proceed to PDN(Power Distribution Network) generation in openlane:
+
 gen_pdn #Command to generate power distribution network
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/ffb80aa0-64c2-4f65-963d-02bbb983f740)
 
 cd /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/09-04_13-19/tmp/floorplan/ #change directory containing PDN def
+
 magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 14-pdn.def & #Command to open PDN def in magic tool
 
 PDN def Screenshots:
@@ -706,8 +754,11 @@ PDN def Screenshots:
 Step 2 : Performing detailed routing using TritonRoute and exploring the routed layout:
 
 echo $::env(CURRENT_DEF) # Check value of 'CURRENT_DEF'
+
 echo $::env(GLOBAL_ROUTER) #Specifies which global router to use. Values: `fastroute` or `cugr`,(Default: `fastroute`) 
+
 echo $::env(DETAILED_ROUTER) # Specifies which detailed router to use. Values: `tritonroute`, `tritonroute_or`, or `drcu`. <br> (Default: `tritonroute`)
+
 echo $::env(ROUTING_OPT_ITERS) # Specifies the maximum number of optimization iterations during Detailed Routing in TritonRoute (Default: `64`)
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a3450ac6-652b-4c0c-b377-ea65caf3e21a)
 
