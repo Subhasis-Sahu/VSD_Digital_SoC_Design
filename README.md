@@ -307,6 +307,60 @@ magic tool screenshot with nwell.4 rule implemented:
 
 # Day-4 Pre-layout timing analysis and importance of good clock tree:
 
+Step 1: Verify if custom inverter cell is ready to be inserted into openlane flow:
+
+Conditions to be verified before moving forward with custom designed cell layout:
+
+Condition 1: The input and output ports of the standard cell should lie on the intersection of the vertical and horizontal tracks.
+Condition 2: Width of the standard cell should be odd multiples of the horizontal track pitch.
+Condition 3: Height of the standard cell should be even multiples of the vertical track pitch.
+
+tracks.info of sky130_fd_sc_hd screenshot:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/81f37ea1-11d2-4920-81ba-4ed818e718cd)
+
+
+cd /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign # Change directory to vsdstdcelldesign
+
+magic -T sky130A.tech sky130_inv.mag & # Command to open custom inverter layout in magic tool
+
+help grid # Get syntax for grid command
+
+grid 0.46um 0.34um 0.23um 0.17um # Set grid values according to values present in tracks.info file for sky130_fd_sc_hd
+
+layout with new grid values:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/67f059a7-992d-4fff-8079-ed3ef298abb3)
+
+Condition 1: The input and output ports of the standard cell should lie on the intersection of the vertical and horizontal tracks.(verified)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/391fc377-0b4b-4b50-9561-f3db6f4ab1dc)
+
+Condition 2: Width of the standard cell should be odd multiples of the horizontal track pitch.(verified)
+Horizontal Track Pitch=0.480 um and Width of standard cell =0.480*3=1.380 um
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a3da4690-866d-48be-a243-3a456f20fbf2)
+
+Condition 3: Height of the standard cell should be even multiples of the vertical track pitch.(verified)
+Vertical Track Pitch=0.340 um and Width of standard cell =0.340*8=2.72 um
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/ad6ff531-8668-4880-9d1e-916948fedb45)
+
+
+Step 2: save custom inverter layout with a name and generate its corresponding lef
+
+save sky130_vsdinv.mag # Command to save layout with a given name
+
+magic -T sky130A.tech sky130_vsdinv.mag & # Command to open custom inverter layout in magic tool
+
+lef write # generate lef of current layout in magic tool
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/45b461d1-5629-45c4-899a-4f2d83efbfe3)
+
+Screenshot of newly generated lef:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/aabb890e-5008-4feb-b865-a6d3cf698b9e)
+
+
+
+
+
+
+
+
 
 
 
