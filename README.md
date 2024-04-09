@@ -767,6 +767,32 @@ more details about routing env variables present in "/home/vsduser/Desktop/work/
 
 run_routing # Command for detailed route using TritonRoute
 
+Routing Completed:
+
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a0c26f43-b804-498e-9a97-7960d91af7ea)
+
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/93130ed6-510f-403a-85ec-652ab9968a55)
+
+
+cd /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/09-04_13-19/results/routing/ # Change directory to path containing routed def
+
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.def & # Command to load the routed def in magic tool
+
+Routed def screenshots:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/d327826a-9f7d-4d23-93fc-8ae574a16aef)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/ec4e20d1-66b9-42d8-aa1b-6737a6cc0036)
+
+
+
+
+Step 3 : Post-route STA analysis:
+
+path of SPEF file post route: /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/09-04_13-19/results/routing/picorv32a.spef
+
+Similarly,post_route STA analysis can be performed using OpenROAD flow within openlane, only change is SPEF file has to be read using "read_spef /openLANE_flow/designs/picorv32a/runs/09-04_13-19/results/routing/picorv32a.spef" command before generating custom timing report.
+
+
+
 
 
 
