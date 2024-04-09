@@ -298,6 +298,7 @@ Changes made in sky130A.tech file to properly implement nwell.4 rule:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/0ef092db-2d56-4861-a4bb-8b03cc0e2ce0)
 
 Commands to run in tkcon window:
+
 tech load sky130A.tech # Load updated tech file
 drc check # Must re-run drc check to see updated drc errors
 drc why # Selecting region displaying the new errors and getting the error messages 
@@ -361,6 +362,7 @@ cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/de
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4d55aee8-296c-4ed0-91d2-df25a3422978)
 
 Edit 'config.tcl' to change lib file and add the new extra lef into the openlane flow:
+
 set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
 set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
 set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
