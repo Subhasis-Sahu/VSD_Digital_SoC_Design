@@ -1,4 +1,4 @@
-# VSD_Digital_SoC_Design
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/efa0e009-69c7-48a9-b57f-d2c449d02d18)# VSD_Digital_SoC_Design
 # Day-1 Introduction to Open Source SoC Design using Openlane:
 
 ## 1.1 What is a SoC?
@@ -382,11 +382,197 @@ prep -design picorv32a #prepares the picorv32a design for openlane flow
 run_synthesis #run synthesis for the prepared design
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/571b10ba-84da-425f-97d9-6c37df27b694)
 
-Step 4:Reduce the newly introduced violations with the introduction of custom inverter cell by modifying design parameters:
+Step 4 : Reduce the newly introduced violations with the introduction of custom inverter cell by modifying design parameters:
 
-Note current generateddesign values before modifying parameters to improve timing:
+Note current generated design values before modifying parameters to improve timing:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4975e66a-9211-4c30-b653-7c9402e04c29)
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/8e8a5cfc-9d60-4f95-a1cf-28aeb2cecd3c)
+
+Commands to change value of design parameters and improve timing:
+prep -design picorv32a -tag 09-04_13-19 -overwrite # Now once again we have to prep design so as to update variables
+
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef] 
+add_lefs -src $lefs # Addiitional commands to include newly added lef to openlane flow merged.lef
+
+echo $::env(SYNTH_STRATEGY) # Command to display current value of variable SYNTH_STRATEGY
+
+set ::env(SYNTH_STRATEGY) "DELAY 3" # Command to set new value for SYNTH_STRATEGY
+
+echo $::env(SYNTH_BUFFERING) # Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled
+
+echo $::env(SYNTH_SIZING) # Command to display current value of variable SYNTH_SIZING
+
+set ::env(SYNTH_SIZING) 1 # Command to set new value for SYNTH_SIZING
+
+echo $::env(SYNTH_DRIVING_CELL) # Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+
+run_synthesis # Now that the design is prepped and ready, we can run synthesis again
+
+Screenshot of running above commands:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/9de7b543-ad7e-43b1-8959-5421c083529a)
+
+Screenshot of merged.lef in tmp directory with our custom inverter set as macro:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/2a1a1d64-eebd-461a-adf8-7bf07db2d433)
+
+Area increase and worst negative slack=0:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4631caf5-fec2-4928-882c-1f9728fb2bff)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/8527a62d-c5da-43ec-995b-707370268e21)
+
+Step 5 : Run Floorplan,Placement and verify whether custom cell is accepted in PnR flow or not:
+run_floorplan facing error:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/e0d54bdb-36de-44c4-8ea8-7175244fc477)
+
+So,after synthesis,run following commands:
+
+init_floorplan # Following three commands sourced from "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/scripts/tcl_commands/floorplan.tcl" & it is also available in Floorplan Commands section in                         "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/docs/source/OpenLANE_commands.md"
+place_io
+tap_decap_or
+
+Screenshot of running above three floorplan commands:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a00260c8-bee0-4d04-8ae5-bd0684f6065c)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/c885d604-0efa-4bb1-8cb4-cb1cdbd5a79d)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/d2349af7-a8e2-4954-aafd-53dbe166df37)
+
+run_placement #run placement after floorplan is done :
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/37a9e553-c28c-4532-9fa8-ddd1f144f77e)
+
+Load placement def in magic tool:
+cd /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/09-04_13-19/results/placement/ # change directory to newly generated placement.def file
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def & #invoke magic tool and open placement.def
+
+placement.def screenshot in magic tool:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/2f858a6b-92ce-4f41-8a33-a93515378573)
+
+Screenshot of custom inverter in placement def with insertion with proper abutment:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/7d07951b-e9d6-4ca1-8fc9-dd9290623c43)
+
+expand # tkcon Command to view internal connectivity layers
+
+Abutment of power pins of custom inverter with other library cells clearly visible in following screenshot:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/2a86aae9-c9d8-4d38-abc7-b60c69af7f79)
+
+Step 6 : Perform Post synthesis Static Timing Analysis with OpenSTA tool:
+Rerun synthesis without adding any parameters to improve timing
+cd ~/Desktop/work/tools/openlane_working_dir/openlane # Change directory to openlane flow directory
+
+docker #run openlane docker subsystem
+./flow.tcl -interactive # open openlane in interactive mode
+
+package require openlane 0.9 #inputs required package for openlane flow
+prep -design picorv32a #prepares the picorv32a design for openlane flow
+
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef] 
+add_lefs -src $lefs # Addiitional commands to include newly added lef to openlane flow merged.lef
+
+set ::env(SYNTH_SIZING) 1 # Command to set new value for SYNTH_SIZING
+
+run_synthesis #run synthesis for the prepared design
+
+synthesis successful with above commands:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/843a8319-3766-46db-bcd8-61c85aa2b702)
+
+create pre_sta.conf in "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/pre_sta.conf" :
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/887c1a26-3596-436e-9b48-313e66b2b17e)
+
+create my_base.sdc in "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/my_base.sdc" based on "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/scripts/base.sdc" file :
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a3e6224b-301f-4eea-a773-f57a53ad2d72)
+
+Commands to run STA in another terminal:
+
+cd /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane # Change directory to openlane
+
+sta pre_sta.conf # Command to invoke OpenSTA tool with script
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/00bfbbf4-375a-44e1-8a39-a1b6dd7baa94)
+
+As more fanout is creating more delay,we can rerun synthesis with parameter to reduce fanout to improve delay:
+prep -design picorv32a -tag 09-04_15-19 -overwrite # Now once again we have to prep design so as to update variables
+
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef] 
+add_lefs -src $lefs # Addiitional commands to include newly added  custom inv lef to openlane flow merged.lef
+
+
+set ::env(SYNTH_SIZING) 1 # Command to set new value for SYNTH_SIZING
+
+set ::env(SYNTH_MAX_FANOUT) 4 # Command to set new value for SYNTH_MAX_FANOUT
+
+echo $::env(SYNTH_DRIVING_CELL) # Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+
+run_synthesis # Now that the design is prepped and ready, we can re-run synthesis using this command:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/f8cb9de2-643d-402d-9b13-51d5c5be035e)
+
+Rerun STA in new terminal window:
+cd /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane # Change directory to openlane
+
+sta pre_sta.conf # Command to invoke OpenSTA tool with script
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/0f950d12-b1a2-452e-8e47-bb1f0156b304)
+
+Step 7 : Perform Timng ECO fixes to reduce timing violations:
+
+OR gate of drive strength 2 is driving 4 fanouts:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/c3a019d3-d9a9-47b8-989d-4d963867ac85)
+
+commands to perform analysis and basic timing eco:
+report_net -connections _11672_ # Reports all the connections to a net
+
+help replace_cell # Checking command syntax
+
+replace_cell _14510_ sky130_fd_sc_hd__or3_4 # Replacing cell
+
+report_checks -fields {net cap slew input_pins} -digits 4 # Generating custom timing report
+
+slack is seen as reducing:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/ad32bb8e-f1db-42a5-b3a8-58d90b16d213)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b7169cba-4324-405c-a71c-5f02abccb179)
+
+OR gate of drive strength 2 is driving 4 fanouts:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/621404fc-4a86-4afb-a5fa-3c3e24297880)
+
+report_net -connections _11675_
+replace_cell _14514_ sky130_fd_sc_hd__or3_4
+report_checks -fields {net cap slew input_pins} -digits 4
+
+slack is seen as reducing:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/53a4df6c-6892-4e93-9633-0799819b10df)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/f683e555-8d61-4c68-8083-d28ce7e470c3)
+
+OR gate of drive strength 2 is driving 3 fanouts:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/6b51eb97-e1c1-4896-8f6f-c3f6f4f7ddea)
+
+report_net -connections _12262_
+replace_cell _15340_ sky130_fd_sc_hd__or3_4
+report_checks -fields {net cap slew input_pins} -digits 4
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
