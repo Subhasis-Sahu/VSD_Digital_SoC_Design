@@ -238,6 +238,50 @@ ngspice output for fall delay:
 
 Fall cell delay = (4.07585 - 4.04943) ns = 0.02602ns
 
+Step 5: Finding problem in the DRC section of the old magic tech file for the skywater process and fixing them.
+Link to Sky130 Periphery rules: [](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html)
+
+Commands to download and view the corrupted skywater process magic tech file and associated files to perform drc corrections
+
+cd # Change to home directory
+
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz # Command to download the lab files
+
+tar xfz drc_tests.tgz # command to extract lab file
+
+cd drc_tests # Change directory into the lab folder
+
+
+ls -al # List all files and directories present in the current directory
+
+
+gvim .magicrc # Command to view .magicrc file
+
+
+magic -d XR & # Command to open magic tool in better graphics
+
+screenshots of commands run:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/5a448e2e-6ccf-41cb-9b31-7eccd60aa0e2)
+
+Screenshot of magicrc file:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/66ca333d-613b-4efa-8606-a752912924bf)
+
+Screenshot of poly rules:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/1322095c-799a-404e-9cb6-545bed920cf0)
+
+Incorrect poly.9 rule implementation ((poly.9) Poly resistor spacing to poly or spacing (no overlap) to diff/tap 0.480 µm) (spacing present in layout less than 0.48 µm)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/cee89f1b-16d7-442a-be03-ab90b50ee086)
+
+New lines added in sky130A.tech file to update drc:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/623357d8-a4cb-46fb-b1a4-fea1d3077a9f)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/af696cf2-9cf0-43cc-ae89-45fbe365dec9)
+
+
+
+
+
+
+
 
 
 
