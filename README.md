@@ -276,6 +276,43 @@ New lines added in sky130A.tech file to update drc:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/623357d8-a4cb-46fb-b1a4-fea1d3077a9f)
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/af696cf2-9cf0-43cc-ae89-45fbe365dec9)
 
+Commands to run in tkcon window after tech file edit:
+
+tech load sky130A.tech # Load updated tech file
+
+drc check # Must re-run drc check to see updated drc errors
+
+drc why # show drc errors for selected region
+
+magic window scrrenshot with edits to poly.9 rule,correctly implemented:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/3ac716c1-cbfe-41dc-8c8e-7d6d33151e1c)
+
+nwell rules screenshot:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/3595994a-f04b-40eb-83ef-0af0e06b0c38)
+
+Incorrectly implemented nwell.4 rule no drc violation even though no metal-contacted tap present in nwell:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/1284e673-ac3b-4ee1-8dff-0b99be48b90e)
+
+Changes made in sky130A.tech file to properly implement nwell.4 rule:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/1b9ced5e-b123-4bda-93e0-1871b0bb9968)
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/0ef092db-2d56-4861-a4bb-8b03cc0e2ce0)
+
+Commands to run in tkcon window:
+tech load sky130A.tech # Load updated tech file
+drc check # Must re-run drc check to see updated drc errors
+drc why # Selecting region displaying the new errors and getting the error messages 
+
+magic tool screenshot with nwell.4 rule implemented:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/85276ceb-735a-42c3-bf66-1e0dee7d5db1)
+
+# Day-4 Pre-layout timing analysis and importance of good clock tree:
+
+
+
+
+
+
+
 
 
 
