@@ -1,4 +1,4 @@
-![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/efa0e009-69c7-48a9-b57f-d2c449d02d18)# VSD_Digital_SoC_Design
+# VSD_Digital_SoC_Design
 # Day-1 Introduction to Open Source SoC Design using Openlane:
 
 ## 1.1 What is a SoC?
