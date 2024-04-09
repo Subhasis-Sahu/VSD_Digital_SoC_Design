@@ -535,12 +535,58 @@ slack is seen as reducing:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/53a4df6c-6892-4e93-9633-0799819b10df)
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/f683e555-8d61-4c68-8083-d28ce7e470c3)
 
-OR gate of drive strength 2 is driving 3 fanouts:
-![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/6b51eb97-e1c1-4896-8f6f-c3f6f4f7ddea)
+OR gate of drive strength 2 driving OA gate leads to more delay:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/3b9154d1-75df-414c-bfee-082a36f9a897)
 
-report_net -connections _12262_
-replace_cell _15340_ sky130_fd_sc_hd__or3_4
+report_net -connections _11643_
+replace_cell _14481_ sky130_fd_sc_hd__or4_4
 report_checks -fields {net cap slew input_pins} -digits 4
+
+slack is seen as reducing:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/7e74d0d7-3a6f-4dda-9a1a-2d459bbc07b2)
+
+OR gate of drive strength 2 driving OA gate leads to more delay:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/84c54ba1-6fcf-40fa-b288-30eaf43454c8)
+
+report_net -connections _11668_
+replace_cell _14506_ sky130_fd_sc_hd__or4_4
+report_checks -fields {net cap slew input_pins} -digits 4
+
+slack is seen as reducing:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/68b29d76-fd7a-46e3-9f20-f4c5b07fcd6a)
+
+
+report_checks -from _29043_ -to _30440_ -through _14506_ # Commands to verify instance _14506_ is replaced with sky130_fd_sc_hd__or4_4
+
+Replaced instance as seen in the screenshot:
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/c55f7500-c786-4ce2-9256-8ff98d364de4)
+
+ECO fixes were started at wns -23.9000ns and after fixes, wns = -22.6173, which is a reduction of 1.2827 ns of violation.
+
+Step 8 : Replacing the old netlist with the new netlist generated after timing ECO fix , and implementing the floorplan, placement and cts:
+
+Commands to make copy of old netlist:
+cd /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/09-04_15-19/results/synthesis/ # Change from home directory to synthesis results directory
+
+ls # List contents of the directory
+
+cp picorv32a.synthesis.v picorv32a.synthesis_old.v # Copy and rename the netlist
+
+ls # List contents of the directory
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/8e66548c-3782-409b-a764-b7f04006282e)
+
+In OpenSTA window:
+write_verilog /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/09-04_15-19/results/synthesis/picorv32a.synthesis.v #overwrite current synthesis netlist
+exit # exit from OpenSTA
+
+instance _14506_ is replaced with sky130_fd_sc_hd__or4_4 (verified in netlist):
+![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/60fef426-ec0b-4c71-9d05-59df90bff884)
+
+Rerun synthesis,floorplan,and placement
+
+
+
+
 
 
 
