@@ -1,5 +1,7 @@
 # VSD_Digital_SoC_Design
-# Day-1 Introduction to Open Source SoC Design using Openlane:
+<details>
+
+<summary>Day-1 Introduction to Open Source SoC Design using Openlane</summary> 
 
 ## 1.1 What is a SoC?
 SoC refers to the term System on a Chip. It is a single chip which integrates a whole electronic or a system into it. A SoC may contain digital, analog, mixed-signal devices on the same chip. In a traditional computer system architecture, each system component such as CPU, controller chips, a GPU, and RAM etc., used to be separately installed on the board, but thanks to technological advancements in the semiconductor industry has enabled more and more elements to be integrated in a single silicon chip.
@@ -55,7 +57,12 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
 
    Flop Ratio =  (Total no.of DFF’s)/(Total no.of Standard Cells)=1613/14876=0.10843
 
-   # Day-2 Floorplanning and Placement:
+</details>
+
+<details>
+
+<summary>Day-2 Floorplanning and Placement</summary> 
+   
 
    ## 2.1 Lab 2: Run floorplanning & placement for the synthesized design,generate outputs and review the results:
    
@@ -145,8 +152,12 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
    Legally Placed standard cells:
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b5e9317a-2781-4af4-b8e4-b51894f7a0f3)
 
+</details>
 
-# Day-3 Design library cell using Magic Layout and ngspice characterization:
+<details>
+
+<summary>Day-3 Design library cell using Magic Layout and ngspice characterization</summary> 
+
 
 ## 3.1 Lab 3: Design library cell using Magic Layout and perform ngspice characterization:
 
@@ -333,7 +344,13 @@ drc why # Selecting region displaying the new errors and getting the error messa
 magic tool screenshot with nwell.4 rule implemented:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/85276ceb-735a-42c3-bf66-1e0dee7d5db1)
 
-# Day-4 Pre-layout timing analysis and importance of good clock tree:
+</details>
+
+<details>
+
+<summary>Day-4 Pre-layout timing analysis and importance of good clock tree</summary> 
+
+
 
 Step 1: Verify if custom inverter cell is ready to be inserted into openlane flow:
 
@@ -763,7 +780,12 @@ set ::env(CTS_CLK_BUFFER_LIST) [linsert $::env(CTS_CLK_BUFFER_LIST) 0 sky130_fd_
 echo $::env(CTS_CLK_BUFFER_LIST) # Checking current value of 'CTS_CLK_BUFFER_LIST'
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/e14e3400-a69e-43db-b6fd-64807aed6cfc)
 
-# Day 5 - Final steps for RTL2GDS using tritonRoute and openSTA
+</details>
+
+<details>
+
+<summary>Day 5 - Final steps for RTL2GDS using tritonRoute and openSTA</summary> 
+
 
 Step 1: Now as CTS is performed,we can proceed to PDN(Power Distribution Network) generation in openlane:
 
@@ -822,7 +844,7 @@ We have to use pre_route netlist.
 SPEF file (contains information about parasitic capacitance of nets) has to be read using "read_spef /openLANE_flow/designs/picorv32a/runs/09-04_13-19/results/routing/picorv32a.spef" command before generating custom timing report.
 
 
-
+</details>
 
 
 
