@@ -87,12 +87,13 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/94c452db-e4f0-4c11-8334-36fba1a3e004)
 
    According to values present in floorplan.def :
-      * 1 µm = 1000 unit distance
-      * Die width in unit distance = 507215 - 0 = 507215
-      * Die height in unit distance = 517935 - 0 = 517935
-      * Die width in µm = 507125/1000=507.125 µm 
-      * Die height in µm = 517935/1000=517.935 µm 
-      * Die Area in µm^2 = (507.125 * 517.935) µm^2 = 262657.786 µm^2
+   
+   * 1 µm = 1000 unit distance
+   * Die width in unit distance = 507215 - 0 = 507215
+   * Die height in unit distance = 517935 - 0 = 517935
+   * Die width in µm = 507125/1000=507.125 µm 
+   * Die height in µm = 517935/1000=517.935 µm 
+   * Die Area in µm^2 = (507.125 * 517.935) µm^2 = 262657.786 µm^2
 
    Step 4: Loading generated floorplan.def in magic tool and exploring it:
 
