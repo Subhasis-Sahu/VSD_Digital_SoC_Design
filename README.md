@@ -74,6 +74,7 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/6905d727-f7d8-4732-baab-36ac4d008280)
 
    Step 2 : After floorplan values are set and synthesis is completed, enter
+   
    run_floorplan # runs floorplan for current synthesized design,with floorplan values set in config.tcl file for the current design
    
    floorplan run completed:
@@ -82,15 +83,16 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
    Step 3 : Calculating Die Area from floorplan.def :
 
    floorplan.def screenshot:
+   
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/94c452db-e4f0-4c11-8334-36fba1a3e004)
 
    According to values present in floorplan.def :
-      1 µm = 1000 unit distance
-      Die width in unit distance = 507215 - 0 = 507215
-      Die height in unit distance = 517935 - 0 = 517935
-      Die width in µm = 507125/1000=507.125 µm 
-      Die height in µm = 517935/1000=517.935 µm 
-      Die Area in µm^2 = (507.125 * 517.935) µm^2 = 262657.786 µm^2
+      * 1 µm = 1000 unit distance
+      * Die width in unit distance = 507215 - 0 = 507215
+      * Die height in unit distance = 517935 - 0 = 517935
+      * Die width in µm = 507125/1000=507.125 µm 
+      * Die height in µm = 517935/1000=517.935 µm 
+      * Die Area in µm^2 = (507.125 * 517.935) µm^2 = 262657.786 µm^2
 
    Step 4: Loading generated floorplan.def in magic tool and exploring it:
 
@@ -99,27 +101,35 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
    magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def & # load floorplan.def in magic tool
 
    floorplan.def screenshot in magic tool:
+   
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/c1497daa-2d23-44de-b9a8-7e4961c239dc)
 
    Equidistant placement of ports:
+   
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/c6b3b4eb-93d3-418d-a0c0-9946a59d55cd)
 
    Port layer as we have set in config.tcl:
+   
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a5e83472-d850-4d3d-bce5-f8f2b0ee0d77)
+   
    ![vertical io layer information](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/5978114a-8dfe-4056-bb3a-1a4290822df7)
 
    Decap cell locations at end of rows (as they are set as endcap in config.tcl):
+   
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/0e127d81-70a7-486c-a69c-e966566285b5)
 
    Tap cells location (diagonally equidistant):
+   
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/264a03fa-0606-45fc-99e6-6403cb0adfba)
 
    Unplaced standard cells present at origin:
+   
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/61cdd5de-ff8e-4610-9363-7ea10257e266)
 
    Step 5:Run congestion aware placement,generate outputs and review results:
 
    run_placement #run congestion-aware placement
+   
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/fc08331c-587a-4062-aa73-51ca7235ffc5)
 
    Step 6: Loading generated placement.def in magic tool and exploring it:
@@ -150,27 +160,32 @@ cd vsdstdcelldesign # Change into repository directory.
 cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech . # Copy magic tech file to the repo directory for easy access.
 
 magic -T sky130A.tech sky130_inv.mag & # Command to open custom inverter layout in magic.
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/5aec9a95-a5b2-4ea0-96b2-6079f27d3e58)
 
 Step 2 : View custom inverter layout in magic tool:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b4af8a3d-56af-4022-b254-2e2b47f8ff06)
 
 custom inverter nmos:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/0c5406ac-12fb-45b8-8da7-cc15f17ecfc0)
 
 custom inverter pmos:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/ce8cbf08-e529-4d43-b726-af674c36350c)
 
 DRC after polysilicon layer deletion:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/c3dcee1d-6c27-4d7f-af7e-55e18e8ef4c7)
 
 Step 3 : SPICE extraction of inverter in magic:
 
-extract all # Extraction command to Extract sky130_inv into sky130_inv.ext in present working directory
+* extract all # Extraction command to Extract sky130_inv into sky130_inv.ext in present working directory
 
-ext2spice cthresh 0 rthresh 0 # enable the parasitic extraction before converting ext to spice 
+* ext2spice cthresh 0 rthresh 0 # enable the parasitic extraction before converting ext to spice 
 
-ext2spice # convert .ext file to .spice file
+* ext2spice # convert .ext file to .spice file
 
 tkcon window after running above commands:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/fb970d77-130a-40cb-beec-13410616cce8)
@@ -183,9 +198,9 @@ Extracted SPICE file edited for transient analysis:
 
 Step 4 : ngspice simulation of edited extracted spice netlist file,performing transient analysis,and calculation rise,fall transition and cell delays:
 
-ngspice sky130_inv.spice # Command to load spice file for simulation to ngspice
+* ngspice sky130_inv.spice # Command to load spice file for simulation to ngspice
 
-plot y vs time a #plot output and input vs time characteristics
+* plot y vs time a #plot output and input vs time characteristics
 
 ngspice run screenshot:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a02d6111-6fb8-4bfe-bf54-33bdb47c8c64)
@@ -193,52 +208,63 @@ ngspice run screenshot:
 screenshot of generated plot:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a8e1f9f4-d381-423f-9840-c41ab4d0020c)
 
-Rise Transition time = Time taken for signal to rise to 80% of final value – Time taken for signal to rise to 20% of final value
-Fall Transition time = Time taken for signal to fall to 20% of final value – Time taken for signal to fall to 80% of final value
-Rise cell Delay = Time taken for output to rise to 50% - Time taken for input to fall to 50%
-Fall cell Delay = Time taken for output to fall to 50% - Time taken for input to rise to 50%
+* Rise Transition time = Time taken for signal to rise to 80% of final value – Time taken for signal to rise to 20% of final value
+* Fall Transition time = Time taken for signal to fall to 20% of final value – Time taken for signal to fall to 80% of final value
+* Rise cell Delay = Time taken for output to rise to 50% - Time taken for input to fall to 50%
+* Fall cell Delay = Time taken for output to fall to 50% - Time taken for input to rise to 50%
 
-20% of 3.3V=0.66V 80% of 3.3V=2.64V 50% of output=1.65V
+* 20% of 3.3V=0.66V 80% of 3.3V=2.64V 50% of output=1.65V
 
 20% output rise screenshot:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/aabd4161-266c-4c2b-b455-e67e971501b2)
 
 80% output rise screenshot:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/1b12136d-623f-4094-99b7-92f8646eefdc)
 
 ngspice output rise transition values corresponding terminal window screenshot:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/fcaec6f2-6e76-45ff-8901-516399a1a3d1)
 
 Output Rise Transition time = (2.24039 - 2.18024) ns = 0.6015ns
 
 20% output fall screenshot:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b4d63039-3521-48b7-866f-5f9bf5d01861)
 
 80% output fall screenshot:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/0eba35ee-55b8-4d0a-8673-b935847e3de8)
 
 ngspice output fall transition values corresponding terminal window screenshot:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b6c4692e-b2a5-48ec-a39e-e8ec7989f99d)
 
 Output Fall Transition time = (4.09349 - 4.05097) ns = 0.04252ns
 
 plot for rise delay:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/326b0b25-70b8-4444-a7d0-a444a7c14ad4)
 
 ngspice output for rise delay:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/a3ae06d2-aeeb-415f-a13a-70cf6de22c59)
 
 Rise cell delay = (2.20782 - 2.14966) ns = 0.05816ns
 
 plot for fall delay:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/8afc0f06-a132-4161-914d-e1c1b502dfdf)
 
 ngspice output for fall delay:
+
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/02967178-3a09-4f8a-9279-ddeb85eef3fc)
 
 Fall cell delay = (4.07585 - 4.04943) ns = 0.02602ns
 
 Step 5: Finding problem in the DRC section of the old magic tech file for the skywater process and fixing them.
+
 Link to Sky130 Periphery rules: [](https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html)
 
 Commands to download and view the corrupted skywater process magic tech file and associated files to perform drc corrections
