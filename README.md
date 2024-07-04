@@ -356,9 +356,9 @@ Step 1: Verify if custom inverter cell is ready to be inserted into openlane flo
 
 Conditions to be verified before moving forward with custom designed cell layout:
 
-Condition 1: The input and output ports of the standard cell should lie on the intersection of the vertical and horizontal tracks.
-Condition 2: Width of the standard cell should be odd multiples of the horizontal track pitch.
-Condition 3: Height of the standard cell should be even multiples of the vertical track pitch.
+* Condition 1: The input and output ports of the standard cell should lie on the intersection of the vertical and horizontal tracks.
+* Condition 2: Width of the standard cell should be odd multiples of the horizontal track pitch.
+* Condition 3: Height of the standard cell should be even multiples of the vertical track pitch.
 
 tracks.info of sky130_fd_sc_hd screenshot:
 ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/81f37ea1-11d2-4920-81ba-4ed818e718cd)
