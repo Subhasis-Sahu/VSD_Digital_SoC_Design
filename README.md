@@ -800,7 +800,7 @@ Commands to open OpenROAD Tool and create OpenROAD database from within openlane
 
 <details>
 
-<summary>Day-5 - Final steps for RTL2GDS using tritonRoute and openSTA</summary> 
+<summary>Day-5 Final steps for RTL2GDS using tritonRoute and openSTA</summary> 
 
 
 Step 1: Now as CTS is performed,we can proceed to PDN(Power Distribution Network) generation in openlane:
