@@ -800,7 +800,7 @@ Commands to open OpenROAD Tool and create OpenROAD database from within openlane
 
 <details>
 
-<summary>Day 5 - Final steps for RTL2GDS using tritonRoute and openSTA</summary> 
+<summary>Day-5 - Final steps for RTL2GDS using tritonRoute and openSTA</summary> 
 
 
 Step 1: Now as CTS is performed,we can proceed to PDN(Power Distribution Network) generation in openlane:
@@ -858,7 +858,7 @@ path of SPEF file post route: `/home/vsduser/Desktop/work/tools/openlane_working
 * Similarly,post_route STA analysis can be performed using OpenROAD flow within openlane.
 * We have to create a new db as def has changed from cts to routing.
 * We have to use post_route netlist.
-* SPEF file (contains information about parasitic capacitance of nets) has to be read using "read_spef /openLANE_flow/designs/picorv32a/runs/09-04_13-19/results/routing/picorv32a.spef" command before generating
+* SPEF file (contains information about parasitic capacitance of nets) has to be read using `read_spef /openLANE_flow/designs/picorv32a/runs/09-04_13-19/results/routing/picorv32a.spef` command before generating
   custom timing report.
 
 
