@@ -30,23 +30,23 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
 
 ## 1.4 Lab 1: Run  synthesis on "picorv32a" design using Openlane flow,generate outputs and analyse the results,by determining flop ratio.
 
-   Step 1 : Change directory to /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane
-    ![changing to openlane directory](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/7b87a8ce-0738-4990-91e2-051831b92c3b)
-
-   Step 2 : set alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u
-   
-   Step 3 : Invoke Openlane using 'docker' command
+    Step 1 : Change directory to /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane
+     ![changing to openlane directory](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/7b87a8ce-0738-4990-91e2-051831b92c3b)
+ 
+    Step 2 : set alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u
+    
+    Step 3 : Invoke Openlane using 'docker' command
    
    Step 4 : Run Openlane flow in interactive mode using following command: ./flow.tcl -interactive
     ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/6e88e7e3-3ea5-497d-a53f-9303ac153d1f)
 
    Step 5 :Input required package for openlane flow, prep the design and then run synthesis
    
-   package require openlane 0.9 #inputs required package for openlane flow
-   
-   prep -design picorv32a #prepares the picorv32a design for openlane flow
-   
-   run_synthesis #run synthesis for the prepared design
+    package require openlane 0.9 #inputs required package for openlane flow
+    
+    prep -design picorv32a #prepares the picorv32a design for openlane flow
+    
+    run_synthesis #run synthesis for the prepared design
             
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/b4429451-7253-438d-9f26-49aee4aa8177)
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/4bf08195-3108-487b-825c-fe45aab62ded)
@@ -66,10 +66,11 @@ Community support: OpenLane capitalizes on OpenLane’s existing community of us
 
    ## 2.1 Lab 2: Run floorplanning & placement for the synthesized design,generate outputs and review the results:
    
-   Step 1 : After synthesis of 'picorv32a' design is completed, edit "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/sky130A_sky130_fd_sc_hd_config.tcl" and add your desired 
+   Step 1 : After synthesis of 'picorv32a' design is completed, edit `/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/sky130A_sky130_fd_sc_hd_config.tcl` and add your desired 
    floorplan options regarding values of core utilization,aspect ratio,IO metal layer used,core to die offset margin etc.,which would override the default values present in 
-   "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/configuration/floorplan.tcl".
-   The description of different variables used in the flow at different stages is present "/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/configuration/README.md" file
+   `/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/configuration/floorplan.tcl`.
+   
+   The description of different variables used in the flow at different stages is present `/home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/configuration/README.md` file
 
    README.md file describing variables used in flow:
    ![image](https://github.com/Subhasis-Sahu/VSD_Digital_SoC_Design/assets/165357439/ca117d0d-cb6e-4f8f-9b62-b657216e4fc3)
